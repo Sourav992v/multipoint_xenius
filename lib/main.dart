@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mutipoint_xenius/constants.dart';
-import 'ui/screens/login_screen.dart';
+import 'package:mutipoint_xenius/locator.dart';
+
+import 'ui/view/home.dart';
+import 'ui/view/login_view.dart';
 
 void main() {
+  setupLoactor();
   runApp(MultipointXeniusApp());
 }
 
@@ -16,7 +20,11 @@ class MultipointXeniusApp extends StatelessWidget {
         primaryColor: kColorPrimary,
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: LoginScreeen(),
+      initialRoute: LoginView.id,
+      routes: {
+        LoginView.id: (context) => LoginView(),
+        Home.id: (context) => Home(),
+      },
     );
   }
 }

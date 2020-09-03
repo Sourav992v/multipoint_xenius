@@ -5,15 +5,20 @@ import 'package:mutipoint_xenius/constants.dart';
 class RoudedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
-  final ValueChanged<String> onChanged;
 
-  const RoudedInputField({Key key, this.hintText, this.icon, this.onChanged})
-      : super(key: key);
+  final TextEditingController loginIdController;
+
+  RoudedInputField({
+    this.loginIdController,
+    this.hintText,
+    this.icon,
+  });
+
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
-        onChanged: onChanged,
+        controller: loginIdController,
         cursorColor: kTextColor,
         decoration: InputDecoration(
           icon: Icon(

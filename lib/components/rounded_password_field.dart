@@ -4,16 +4,17 @@ import 'package:mutipoint_xenius/constants.dart';
 
 class RoudedPasswordField extends StatelessWidget {
   final String hintText;
-  final ValueChanged<String> onChanged;
 
-  const RoudedPasswordField({Key key, this.hintText, this.onChanged})
-      : super(key: key);
+  final TextEditingController passwordController;
+
+  RoudedPasswordField({this.passwordController, this.hintText});
+
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
         obscureText: true,
-        onChanged: onChanged,
+        controller: passwordController,
         cursorColor: kTextColor,
         decoration: InputDecoration(
           hintText: "Password",
