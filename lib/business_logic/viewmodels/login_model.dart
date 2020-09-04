@@ -1,4 +1,6 @@
 import 'package:mutipoint_xenius/business_logic/enum/viewstate.dart';
+import 'package:mutipoint_xenius/business_logic/models/login_resource.dart';
+import 'package:mutipoint_xenius/business_logic/models/resource.dart';
 import 'package:mutipoint_xenius/business_logic/services/authentication_service.dart';
 import 'package:mutipoint_xenius/business_logic/viewmodels/base_model.dart';
 import 'package:mutipoint_xenius/locator.dart';
@@ -8,13 +10,13 @@ class LoginModel extends BaseModel {
       locator<AuthenticationService>();
 
   String errorMessage;
-  Future<bool> login(String loginId, String password) async {
+  Future<LoginResource> login(String loginId, String password) async {
     setState(ViewState.Busy);
 
     if (loginId == null || password == null) {
       errorMessage = 'Value entered is not a number';
       setState(ViewState.Idle);
-      return false;
+      return LoginResource();
     }
     var success = await _authenticationService.login(loginId, password);
 

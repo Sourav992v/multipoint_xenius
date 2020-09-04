@@ -1,4 +1,8 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mutipoint_xenius/ui/view/home.dart';
 import 'package:provider/provider.dart';
 
@@ -29,10 +33,65 @@ class LoginHeader extends StatefulWidget {
 class _LoginHeaderState extends State<LoginHeader> {
   bool _obscureText = true;
 
+  String _connectivityStatus;
+  final Connectivity _connectivity = Connectivity();
+  StreamSubscription<ConnectivityResult> _connectionSubscription;
+
   void toggle() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _connectionSubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+  }
+
+  @override
+  void dispose() {
+    _connectionSubscription.cancel();
+    super.dispose();
+  }
+
+  Future<void> initConnectivity() async {
+    ConnectivityResult connectivityResult;
+
+    try {
+      connectivityResult = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      print(e.toString());
+    }
+
+    if (!mounted) {
+      Future.value(null);
+    }
+
+    return _updateConnectionStatus(connectivityResult);
+  }
+
+  void printWrapped(String text) {
+    final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
+    pattern.allMatches(text).forEach((match) => print(match.group(0)));
+  }
+
+  Future<void> _updateConnectionStatus(
+      ConnectivityResult connectivityResult) async {
+    switch (connectivityResult) {
+      case ConnectivityResult.mobile:
+        setState(() => _connectivityStatus = connectivityResult.toString());
+        break;
+      case ConnectivityResult.wifi:
+        setState(() => _connectivityStatus = connectivityResult.toString());
+        break;
+      case ConnectivityResult.none:
+        setState(() => _connectivityStatus = connectivityResult.toString());
+        break;
+      default:
+        setState(() => _connectivityStatus = connectivityResult.toString());
+    }
   }
 
   @override
@@ -94,16 +153,34 @@ class _LoginHeaderState extends State<LoginHeader> {
                         text: 'Sign In',
                         press: () async {
                           FocusScope.of(context).unfocus();
-                          var success = await model.login(
-                              widget.loginIdController.text,
-                              widget.passwordController.text);
-                          print(success.toString());
-                          if (success) {
-                            Navigator.pushNamed(context, Home.id);
+
+                          if (_connectivityStatus ==
+                                  "ConnectivityResult.mobile" ||
+                              _connectivityStatus ==
+                                  "ConnectivityResult.wifi") {
+                            var success = await model.login(
+                                widget.loginIdController.text,
+                                widget.passwordController.text);
+                            printWrapped(success.resource.toJson().toString());
+                            if (success.rc == 0) {
+                              Navigator.pushReplacementNamed(context, Home.id);
+                            } else {
+                              Scaffold.of(context).showSnackBar(SnackBar(
+                                content: Text(
+                                  'Invalid credentials!',
+                                  style: TextStyle(
+                                    fontFamily: 'Open Sans',
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 12.0,
+                                  ),
+                                ),
+                                backgroundColor: kColorPrimaryDark,
+                              ));
+                            }
                           } else {
                             Scaffold.of(context).showSnackBar(SnackBar(
                               content: Text(
-                                'Invalid credentials!',
+                                'No Internet!',
                                 style: TextStyle(
                                   fontFamily: 'Open Sans',
                                   fontWeight: FontWeight.normal,
