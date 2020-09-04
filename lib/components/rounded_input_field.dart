@@ -5,7 +5,6 @@ import 'package:mutipoint_xenius/constants.dart';
 class RoudedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
-
   final TextEditingController loginIdController;
 
   RoudedInputField({
@@ -18,6 +17,7 @@ class RoudedInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFieldContainer(
       child: TextField(
+        keyboardType: TextInputType.number,
         controller: loginIdController,
         cursorColor: kTextColor,
         decoration: InputDecoration(

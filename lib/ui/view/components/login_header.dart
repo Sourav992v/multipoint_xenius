@@ -6,11 +6,12 @@ import 'package:mutipoint_xenius/business_logic/viewmodels/login_model.dart';
 import 'package:mutipoint_xenius/components/rouded_button.dart';
 import 'package:mutipoint_xenius/components/rounded_input_field.dart';
 import 'package:mutipoint_xenius/components/rounded_password_field.dart';
+import 'package:mutipoint_xenius/components/check_box.dart';
 
 import '../../../constants.dart';
 import '../../../locator.dart';
 
-class LoginHeader extends StatelessWidget {
+class LoginHeader extends StatefulWidget {
   final TextEditingController loginIdController;
   final TextEditingController passwordController;
   final String validationMessege;
@@ -20,6 +21,19 @@ class LoginHeader extends StatelessWidget {
     @required this.passwordController,
     this.validationMessege,
   });
+
+  @override
+  _LoginHeaderState createState() => _LoginHeaderState();
+}
+
+class _LoginHeaderState extends State<LoginHeader> {
+  bool _obscureText = true;
+
+  void toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +46,8 @@ class LoginHeader extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/login_xenius_background.png"),
-                fit: BoxFit.cover),
+                fit: BoxFit.fill,
+                alignment: Alignment.center),
           ),
           child: Container(
             height: double.maxFinite,
@@ -60,37 +75,43 @@ class LoginHeader extends StatelessWidget {
                         height: size.height * 0.03,
                       ),
                       RoudedInputField(
-                        loginIdController: loginIdController,
+                        loginIdController: widget.loginIdController,
                         icon: Icons.person,
                         hintText: "Login Id",
                       ),
                       RoudedPasswordField(
-                        passwordController: passwordController,
+                        passwordController: widget.passwordController,
+                        obscureText: _obscureText,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Checkbox(value: false, onChanged: (bool value) {}),
-                            Text(
-                              "Show Password",
-                              style: TextStyle(
-                                fontFamily: "Open Sans",
-                                fontSize: 14.0,
-                              ),
-                            ),
-                          ],
-                        ),
+                      CheckBoxCostume(
+                        title: 'Show Password',
+                        value: !_obscureText,
+                        checked: (bool value) {
+                          toggle();
+                        },
                       ),
                       RoundedButton(
                         text: 'Sign In',
                         press: () async {
+                          FocusScope.of(context).unfocus();
                           var success = await model.login(
-                              loginIdController.text, passwordController.text);
+                              widget.loginIdController.text,
+                              widget.passwordController.text);
                           print(success.toString());
                           if (success) {
                             Navigator.pushNamed(context, Home.id);
+                          } else {
+                            Scaffold.of(context).showSnackBar(SnackBar(
+                              content: Text(
+                                'Invalid credentials!',
+                                style: TextStyle(
+                                  fontFamily: 'Open Sans',
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 12.0,
+                                ),
+                              ),
+                              backgroundColor: kColorPrimaryDark,
+                            ));
                           }
                         },
                         color: kColorAccentRed,
