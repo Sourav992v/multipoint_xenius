@@ -1,5 +1,5 @@
 import 'package:mutipoint_xenius/business_logic/models/login_resource.dart';
-import 'package:mutipoint_xenius/business_logic/models/resource.dart';
+
 import 'package:mutipoint_xenius/business_logic/services/api.dart';
 import 'package:mutipoint_xenius/locator.dart';
 

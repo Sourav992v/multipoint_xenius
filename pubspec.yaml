@@ -33,6 +33,7 @@ dependencies:
   get_it: ^4.0.4
   connectivity: ^0.4.9+2
   shared_preferences: ^0.5.10
+  carousel_slider: ^2.2.1
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +54,9 @@ flutter:
     - family: Open Sans
       fonts:
       - asset: fonts/OpenSans-Regular.ttf
+    - family: Lato
+      fonts:
+      - asset: fonts/Lato-Regular.ttf
   
   assets:
     - assets/images/

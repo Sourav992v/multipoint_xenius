@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mutipoint_xenius/ui/view/home.dart';
-import 'package:mutipoint_xenius/ui/view/login_view.dart';
+import 'package:mutipoint_xenius/ui/view/home/home.dart';
+import 'package:mutipoint_xenius/ui/view/login/login_view.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {

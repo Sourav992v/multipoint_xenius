@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mutipoint_xenius/ui/view/home.dart';
+import 'package:mutipoint_xenius/constants.dart';
+import 'package:mutipoint_xenius/locator.dart';
+import 'package:mutipoint_xenius/ui/view/home/home.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mutipoint_xenius/business_logic/viewmodels/login_model.dart';
@@ -11,9 +13,6 @@ import 'package:mutipoint_xenius/components/rouded_button.dart';
 import 'package:mutipoint_xenius/components/rounded_input_field.dart';
 import 'package:mutipoint_xenius/components/rounded_password_field.dart';
 import 'package:mutipoint_xenius/components/check_box.dart';
-
-import '../../../constants.dart';
-import '../../../locator.dart';
 
 class LoginHeader extends StatefulWidget {
   final TextEditingController loginIdController;
@@ -125,7 +124,7 @@ class _LoginHeaderState extends State<LoginHeader> {
                         child: Text(
                           "Smart Energy Management Solution",
                           style: TextStyle(
-                              fontFamily: 'Open Sans',
+                              fontFamily: 'Lato',
                               fontWeight: FontWeight.bold,
                               color: kTextColor),
                         ),
@@ -169,7 +168,7 @@ class _LoginHeaderState extends State<LoginHeader> {
                                 content: Text(
                                   'Invalid credentials!',
                                   style: TextStyle(
-                                    fontFamily: 'Open Sans',
+                                    fontFamily: 'Lato',
                                     fontWeight: FontWeight.normal,
                                     fontSize: 12.0,
                                   ),
@@ -182,7 +181,7 @@ class _LoginHeaderState extends State<LoginHeader> {
                               content: Text(
                                 'No Internet!',
                                 style: TextStyle(
-                                  fontFamily: 'Open Sans',
+                                  fontFamily: 'Lato',
                                   fontWeight: FontWeight.normal,
                                   fontSize: 12.0,
                                 ),
