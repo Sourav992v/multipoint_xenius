@@ -6,17 +6,19 @@ class OverviewBalance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400.0,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12.0),
         ),
-        margin: EdgeInsets.all(16.0),
+        margin: EdgeInsets.all(12.0),
         color: Colors.white24,
         elevation: 5.0,
         child: Column(
           children: [
             GridBalanceCard(),
+            SizedBox(
+              height: 8.0,
+            ),
             DGBalanceCard(),
           ],
         ),
@@ -26,17 +28,13 @@ class OverviewBalance extends StatelessWidget {
 }
 
 class GridBalanceCard extends StatelessWidget {
-  const GridBalanceCard({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
-      margin: EdgeInsets.only(top: 8.0, bottom: 4.0, left: 0.0, right: 0.0),
+      margin: EdgeInsets.only(top: 0.0, bottom: 4.0, left: 0.0, right: 0.0),
       color: Colors.white,
       clipBehavior: Clip.antiAlias,
       child: Padding(

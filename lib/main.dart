@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mutipoint_xenius/constants.dart';
 import 'package:mutipoint_xenius/locator.dart';
-import 'package:mutipoint_xenius/ui/view/home/components/overview_balance_card_layout.dart';
-import 'package:mutipoint_xenius/ui/view/home/components/today_consumption.dart';
-import 'package:mutipoint_xenius/ui/widget.dart';
 
 import 'ui/view/home/components/month_consumption.dart';
 import 'ui/view/home/home.dart';
@@ -25,7 +22,7 @@ class MultipointXeniusApp extends StatelessWidget {
         fontFamily: 'Lato',
         scaffoldBackgroundColor: Colors.white,
       ),
-      initialRoute: MonthConsumtion.id,
+      initialRoute: Home.id,
       routes: {
         LoginView.id: (context) => LoginView(),
         Home.id: (context) => Home(),
