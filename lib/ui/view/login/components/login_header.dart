@@ -13,6 +13,7 @@ import 'package:mutipoint_xenius/components/rouded_button.dart';
 import 'package:mutipoint_xenius/components/rounded_input_field.dart';
 import 'package:mutipoint_xenius/components/rounded_password_field.dart';
 import 'package:mutipoint_xenius/components/check_box.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginHeader extends StatefulWidget {
   final TextEditingController loginIdController;
@@ -157,9 +158,14 @@ class _LoginHeaderState extends State<LoginHeader> {
                                   "ConnectivityResult.mobile" ||
                               _connectivityStatus ==
                                   "ConnectivityResult.wifi") {
-                            var success = await model.login(
-                                widget.loginIdController.text,
-                                widget.passwordController.text);
+                            SharedPreferences userPref =
+                                await SharedPreferences.getInstance();
+                            userPref.setString(
+                                'login_id', widget.loginIdController.text);
+                            userPref.setString(
+                                'password', widget.passwordController.text);
+
+                            var success = await model.login();
                             printWrapped(success.resource.toJson().toString());
                             if (success.rc == 0) {
                               Navigator.pushReplacementNamed(context, Home.id);

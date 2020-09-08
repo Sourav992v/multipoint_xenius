@@ -5,17 +5,10 @@ import 'package:mutipoint_xenius/business_logic/services/authentication_service.
 import 'package:mutipoint_xenius/business_logic/viewmodels/base_model.dart';
 import 'package:mutipoint_xenius/locator.dart';
 
-class LoginModel extends BaseModel {
+class OverviewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
 
   String errorMessage;
-  Future<LoginResource> login() async {
-    setState(ViewState.Busy);
-
-    var success = await _authenticationService.getUser();
-
-    setState(ViewState.Idle);
-    return success.body;
-  }
+ 
 }

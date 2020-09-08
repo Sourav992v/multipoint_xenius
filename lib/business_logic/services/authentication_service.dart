@@ -1,16 +1,27 @@
 import 'package:mutipoint_xenius/business_logic/models/login_resource.dart';
 
-import 'package:mutipoint_xenius/business_logic/services/api.dart';
-import 'package:mutipoint_xenius/locator.dart';
+import 'package:chopper/chopper.dart';
+import 'package:mutipoint_xenius/business_logic/services/interceptor/header_interceptor.dart';
+import 'package:mutipoint_xenius/business_logic/services/model_converter.dart';
 
-class AuthenticationService {
-  Api _api = locator<Api>();
+part 'authentication_service.chopper.dart';
 
-  Future<LoginResource> login(String loginId, String password) async {
-    var fetchedUser = await _api.getUser(loginId, password);
+@ChopperApi()
+abstract class AuthenticationService extends ChopperService {
+  static AuthenticationService create() {
+    final client = ChopperClient(
+      baseUrl: 'http://13.232.173.148/thirdparty/api',
+      interceptors: [HeaderInterceptor(), HttpLoggingInterceptor()],
+      converter: ModelConverter(),
+      errorConverter: JsonConverter(),
+      services: [
+        _$AuthenticationService(),
+      ],
+    );
 
-    var hasUser = fetchedUser;
-
-    return hasUser;
+    return _$AuthenticationService(client);
   }
+
+  @Get(path: 'login')
+  Future<Response<LoginResource>> getUser();
 }

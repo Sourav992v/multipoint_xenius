@@ -1,5 +1,9 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'resource.dart';
 
+part 'login_resource.g.dart';
+
+@JsonSerializable()
 class LoginResource {
   int rc;
   String message;
@@ -14,25 +18,8 @@ class LoginResource {
       this.appBaseUrl,
       this.resource});
 
-  LoginResource.fromJson(Map<String, dynamic> json) {
-    rc = json['rc'];
-    message = json['message'];
-    application = json['application'];
-    appBaseUrl = json['app_base_url'];
-    resource = json['resource'] != null
-        ? new Resource.fromJson(json['resource'])
-        : null;
-  }
+  factory LoginResource.fromJson(Map<String, dynamic> json) =>
+      _$LoginResourceFromJson(json);
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['rc'] = this.rc;
-    data['message'] = this.message;
-    data['application'] = this.application;
-    data['app_base_url'] = this.appBaseUrl;
-    if (this.resource != null) {
-      data['resource'] = this.resource.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => _$LoginResourceToJson(this);
 }

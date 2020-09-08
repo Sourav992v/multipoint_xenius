@@ -7,7 +7,7 @@ import 'business_logic/viewmodels/login_model.dart';
 GetIt locator = GetIt.instance;
 
 void setupLoactor() {
-  locator.registerLazySingleton(() => AuthenticationService());
+  locator.registerLazySingleton(() => AuthenticationService.create());
   locator.registerLazySingleton(() => Api());
 
   locator.registerFactory(() => LoginModel());
