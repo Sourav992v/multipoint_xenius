@@ -11,7 +11,7 @@ LoginResource _$LoginResourceFromJson(Map<String, dynamic> json) {
     rc: json['rc'] as int,
     message: json['message'] as String,
     application: json['application'] as String,
-    appBaseUrl: json['appBaseUrl'] as String,
+    appBaseUrl: json['app_base_url'] as String,
     resource: json['resource'] == null
         ? null
         : Resource.fromJson(json['resource'] as Map<String, dynamic>),
@@ -23,6 +23,6 @@ Map<String, dynamic> _$LoginResourceToJson(LoginResource instance) =>
       'rc': instance.rc,
       'message': instance.message,
       'application': instance.application,
-      'appBaseUrl': instance.appBaseUrl,
+      'app_base_url': instance.appBaseUrl,
       'resource': instance.resource,
     };

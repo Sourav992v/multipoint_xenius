@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:mutipoint_xenius/constants.dart';
 
 class OverviewBalance extends StatelessWidget {
@@ -64,7 +65,7 @@ class GridBalanceCard extends StatelessWidget {
                   style: kSubLabelTextStyle,
                 ),
                 Text(
-                  '23-44-44 44 67 98',
+                  '23:45:87',
                   style: kSubValueTextStyle,
                 ),
               ],

@@ -18,7 +18,6 @@ class ModelConverter implements Converter {
   @override
   FutureOr<Response<BodyType>> convertResponse<BodyType, InnerType>(
       Response response) {
-    // TODO: implement convertResponse
     return decodeJson<BodyType, InnerType>(response);
   }
 }

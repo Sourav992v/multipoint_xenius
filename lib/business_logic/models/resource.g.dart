@@ -8,13 +8,13 @@ part of 'resource.dart';
 
 Resource _$ResourceFromJson(Map<String, dynamic> json) {
   return Resource(
-    androidVersion: json['androidVersion'] as String,
-    iosVersion: json['iosVersion'] as String,
+    androidVersion: json['android_version'] as String,
+    iosVersion: json['ios_version'] as String,
     mobileAppStatus: json['mobileAppStatus'] as String,
     locationId: json['locationId'] as String,
     loginCount: json['loginCount'] as String,
     deviceAppVer: json['deviceAppVer'] as String,
-    flatNumber: json['flatNumber'] as String,
+    flatNumber: json['flat_number'] as String,
     consumerName: json['consumerName'] as String,
     consumerMobileNo: json['consumerMobileNo'] as String,
     consumerEmailId: json['consumerEmailId'] as String,
@@ -116,13 +116,13 @@ Resource _$ResourceFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ResourceToJson(Resource instance) => <String, dynamic>{
-      'androidVersion': instance.androidVersion,
-      'iosVersion': instance.iosVersion,
+      'android_version': instance.androidVersion,
+      'ios_version': instance.iosVersion,
       'mobileAppStatus': instance.mobileAppStatus,
       'locationId': instance.locationId,
       'loginCount': instance.loginCount,
       'deviceAppVer': instance.deviceAppVer,
-      'flatNumber': instance.flatNumber,
+      'flat_number': instance.flatNumber,
       'consumerName': instance.consumerName,
       'consumerMobileNo': instance.consumerMobileNo,
       'consumerEmailId': instance.consumerEmailId,

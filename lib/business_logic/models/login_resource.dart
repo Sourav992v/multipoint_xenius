@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'resource.dart';
+import 'package:mutipoint_xenius/business_logic/models/resource.dart';
 
 part 'login_resource.g.dart';
 
@@ -8,7 +8,11 @@ class LoginResource {
   int rc;
   String message;
   String application;
+
+  @JsonKey(name: 'app_base_url')
   String appBaseUrl;
+
+  @JsonKey(name: 'resource')
   Resource resource;
 
   LoginResource(

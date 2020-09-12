@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:chopper/chopper.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mutipoint_xenius/business_logic/models/login_resource.dart';
+import 'package:mutipoint_xenius/business_logic/models/resource.dart';
 import 'package:mutipoint_xenius/constants.dart';
 import 'package:mutipoint_xenius/locator.dart';
 import 'package:mutipoint_xenius/ui/view/home/home.dart';
@@ -166,8 +169,11 @@ class _LoginHeaderState extends State<LoginHeader> {
                                 'password', widget.passwordController.text);
 
                             var success = await model.login();
-                            printWrapped(success.resource.toJson().toString());
-                            if (success.rc == 0) {
+
+                            LoginResource login = success.body;
+
+                            if (success.body.rc == 0) {
+                              print('${login.resource.flatNumber}');
                               Navigator.pushReplacementNamed(context, Home.id);
                             } else {
                               Scaffold.of(context).showSnackBar(SnackBar(
