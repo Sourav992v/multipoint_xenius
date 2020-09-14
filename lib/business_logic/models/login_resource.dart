@@ -12,7 +12,6 @@ class LoginResource {
   @JsonKey(name: 'app_base_url')
   String appBaseUrl;
 
-  @JsonKey(name: 'resource')
   Resource resource;
 
   LoginResource(

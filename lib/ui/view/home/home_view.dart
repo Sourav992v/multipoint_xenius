@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mutipoint_xenius/business_logic/services/authentication_service.dart';
 import 'package:mutipoint_xenius/constants.dart';
 import 'package:mutipoint_xenius/ui/view/home/components/collapsing_toolbar.dart';
 import 'package:mutipoint_xenius/ui/view/home/components/page_view_overview.dart';
+import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   static const String id = 'home';

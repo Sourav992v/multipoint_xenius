@@ -94,7 +94,7 @@ class Resource {
   @JsonKey(name: 'move_in_date')
   String moveInDate;
 
-  @JsonKey(name: 'ios_version')
+  @JsonKey(name: 'notification_ivrs')
   String notificationIvrs;
 
   @JsonKey(name: 'notification_app_load')
@@ -121,135 +121,196 @@ class Resource {
   @JsonKey(name: 'alert_daily_consumption_dg')
   String alertDailyConsumptionDg;
 
-  @JsonKey(name: 'ios_version')
+  @JsonKey(name: 'load_setting_enabled')
   String loadSettingEnabled;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'power_cut_restore_notification')
   String powerCutRestoreNotification;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'recharge_notification')
   String rechargeNotification;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'grid_sanctioned_load')
   String gridSanctionedLoad;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'dg_sanctioned_load')
   String dgSanctionedLoad;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'load_unit')
   String loadUnit;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'meter_type')
   String meterType;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'grid_load_alarm')
   String gridLoadAlarm;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'dg_load_alarm')
   String dgLoadAlarm;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'grid_overload_setting')
   String gridOverloadSetting;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'dg_overload_setting')
   String dgOverloadSetting;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'grid_overload_from_time')
   String gridOverloadFromTime;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'grid_overload_to_time')
   String gridOverloadToTime;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'dg_overload_from_time')
   String dgOverloadFromTime;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'dg_overload_to_time')
   String dgOverloadToTime;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'overload_grid')
   String overloadGrid;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'overload_dg')
   String overloadDg;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_id')
   String siteId;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_name')
   String siteName;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_address')
   String siteAddress;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_city')
   String siteCity;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_state')
   String siteState;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_country')
   String siteCountry;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_zipcode')
   String siteZipcode;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_supervisor_name')
   String siteSupervisorName;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_supervisor_contact_no')
   String siteSupervisorContactNo;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_supervisor_email_id')
   String siteSupervisorEmailId;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_support_concern_name')
   String siteSupportConcernName;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_support_contact_no')
   String siteSupportContactNo;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_support_email_id')
   String siteSupportEmailId;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'main_license')
   String mainLicense;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'application')
   String application;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'reading_unit')
   String readingUnit;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'currency')
   String currency;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'site_code')
   String siteCode;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'balance_enable')
   String balanceEnable;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'reading_enable')
   String readingEnable;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'monthly_bill_enable')
   String monthlyBillEnable;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'monthly_bill_no_of_month')
   String monthlyBillNoOfMonth;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'PLM')
   String pLM;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'pg_enable_paytm')
   String pgEnablePaytm;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'pg_enable_mobikwik')
   String pgEnableMobikwik;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'paytm_mobile_url')
   String paytmMobileUrl;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'mobikwik_mobile_url')
   String mobikwikMobileUrl;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'pg_enable_hdfc')
   String pgEnableHdfc;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'paytm_image')
   String paytmImage;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'recharge_popup_message')
   String rechargePopupMessage;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'energy_source')
   String energySource;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'last_reading_updated_dg')
   String lastReadingUpdatedDg;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'display_load_setting_screen')
   String displayLoadSettingScreen;
-  @JsonKey(name: 'ios_version')
-  int dailyDgUnit;
-  @JsonKey(name: 'ios_version')
-  int dailyGridUnit;
-  @JsonKey(name: 'ios_version')
-  int monthlyDgUnit;
-  @JsonKey(name: 'ios_version')
-  int monthlyGridUnit;
-  @JsonKey(name: 'ios_version')
-  int dailyDgAmount;
-  @JsonKey(name: 'ios_version')
-  int dailyGridAmount;
-  @JsonKey(name: 'ios_version')
-  int monthlyDgAmount;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'daily_dg_unit')
+  double dailyDgUnit;
+
+  @JsonKey(name: 'daily_grid_unit')
+  double dailyGridUnit;
+
+  @JsonKey(name: 'monthly_dg_unit')
+  double monthlyDgUnit;
+
+  @JsonKey(name: 'monthly_grid_unit')
+  double monthlyGridUnit;
+
+  @JsonKey(name: 'daily_dg_amount')
+  double dailyDgAmount;
+
+  @JsonKey(name: 'daily_grid_amount')
+  double dailyGridAmount;
+
+  @JsonKey(name: 'monthly_dg_amount')
+  double monthlyDgAmount;
+
+  @JsonKey(name: 'monthly_grid_amount')
   double monthlyGridAmount;
-  @JsonKey(name: 'ios_version')
-  int fixCharges;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'fix_charges')
+  double fixCharges;
+
+  @JsonKey(name: 'dr_cr')
   String drCr;
-  @JsonKey(name: 'ios_version')
-  int fixChargesMonthly;
-  @JsonKey(name: 'ios_version')
+
+  @JsonKey(name: 'fix_charges_monthly')
+  double fixChargesMonthly;
+
+  @JsonKey(name: 'dr_cr_monthly')
   String drCrMonthly;
 
-  @JsonKey(name: 'ios_version')
-  int dgFixChargesMonthly;
+  @JsonKey(name: 'dg_fix_charges_monthly')
+  double dgFixChargesMonthly;
 
-  @JsonKey(name: 'ios_version')
+  @JsonKey(name: 'dg_dr_cr_monthly')
   String dgDrCrMonthly;
 
   Resource(

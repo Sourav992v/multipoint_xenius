@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:mutipoint_xenius/business_logic/viewmodels/base_model.dart';
+import 'package:mutipoint_xenius/business_logic/viewmodels/base_viewmodel.dart';
 import 'package:mutipoint_xenius/locator.dart';
 import 'package:provider/provider.dart';
 
-class BaseView<T extends BaseModel> extends StatefulWidget {
+class BaseView<T extends BaseViewModel> extends StatefulWidget {
   final Widget Function(BuildContext context, T value, Widget child) builder;
   final Function(T) onModelReady;
 
@@ -15,7 +15,7 @@ class BaseView<T extends BaseModel> extends StatefulWidget {
   _BaseViewState<T> createState() => _BaseViewState<T>();
 }
 
-class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
+class _BaseViewState<T extends BaseViewModel> extends State<BaseView<T>> {
   T model = locator<T>();
 
   @override
