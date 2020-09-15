@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mutipoint_xenius/constants.dart';
 import 'package:mutipoint_xenius/ui/view/home/components/collapsing_toolbar.dart';
-import 'package:mutipoint_xenius/ui/view/home/components/page_view_overview.dart';
+import 'package:mutipoint_xenius/ui/view/home/components/overview.dart';
 
 class Home extends StatefulWidget {
   static const String id = 'home';
@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
   final List<Widget> _widgetOption = [
-    PageViewBalance(),
+    OverviewPage(),
     Text(
       'Index 1: Recharge',
       style: optionStyle,

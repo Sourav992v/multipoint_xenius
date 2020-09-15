@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:mutipoint_xenius/business_logic/viewmodels/home_viewmodel.dart';
-import 'package:mutipoint_xenius/ui/view/base_view.dart';
 
 import 'package:mutipoint_xenius/ui/view/home/components/overview_balance_card_layout.dart';
+import 'package:mutipoint_xenius/ui/view/home/components/piechart_value_lines.dart';
 
 import 'month_consumption.dart';
 import 'today_consumption.dart';
@@ -17,18 +16,13 @@ List<Widget> layoutList = [
 class OverviewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView<HomeViewModel>(
-      onModelReady: (model) => model.getLoginResource(),
-      builder: (context, value, child) => Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              PageViewBalance(),
-              SizedBox(
-                height: 16.0,
-              ),
-            ],
-          ),
+    return Scaffold(
+      body: Container(
+        child: Column(
+          children: [
+            PageViewBalance(),
+            PiechartRecyclerView(),
+          ],
         ),
       ),
     );
