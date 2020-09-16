@@ -25,6 +25,7 @@ import 'package:mutipoint_xenius/business_logic/models/resource.dart';
 import 'package:mutipoint_xenius/business_logic/viewmodels/home_viewmodel.dart';
 import 'package:mutipoint_xenius/constants.dart';
 import 'package:mutipoint_xenius/locator.dart';
+import 'package:mutipoint_xenius/ui/view/base_view.dart';
 
 List<String> pieChartListText = ['Today', 'Month'];
 
@@ -83,31 +84,33 @@ class _PieChartOverViewState extends State<PieChartOverView> {
 
   @override
   void initState() {
-    _initController();
-
     model.getLoginResource().then((value) {
       setState(() {
         resource = value.body.resource;
       });
     });
-
-    _initPieData(resource);
+    _initController();
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400.0,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: _initPieChart(),
-          )
-        ],
-      ),
-    );
+    return BaseView<HomeViewModel>(builder: (context, value, child) {
+      if (resource != null) {
+        _initPieData(resource);
+      }
+      return Container(
+        height: 400.0,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: _initPieChart(),
+            )
+          ],
+        ),
+      );
+    });
   }
 
   final List<String> PARTIES = List()
