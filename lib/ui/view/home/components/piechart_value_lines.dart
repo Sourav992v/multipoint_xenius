@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -6,7 +7,7 @@ import 'package:mp_chart/mp/chart/pie_chart.dart';
 import 'package:mp_chart/mp/controller/pie_chart_controller.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
 import 'package:mp_chart/mp/core/animator.dart';
-import 'package:mp_chart/mp/core/common_interfaces.dart';
+
 import 'package:mp_chart/mp/core/data/pie_data.dart';
 import 'package:mp_chart/mp/core/data_set/pie_data_set.dart';
 import 'package:mp_chart/mp/core/description.dart';
@@ -16,41 +17,52 @@ import 'package:mp_chart/mp/core/enums/legend_horizontal_alignment.dart';
 import 'package:mp_chart/mp/core/enums/legend_orientation.dart';
 import 'package:mp_chart/mp/core/enums/legend_vertical_alignment.dart';
 import 'package:mp_chart/mp/core/enums/value_position.dart';
-import 'package:mp_chart/mp/core/highlight/highlight.dart';
+
 import 'package:mp_chart/mp/core/render/pie_chart_renderer.dart';
 import 'package:mp_chart/mp/core/utils/color_utils.dart';
 import 'package:mp_chart/mp/core/value_formatter/percent_formatter.dart';
+import 'package:mutipoint_xenius/business_logic/models/resource.dart';
+import 'package:mutipoint_xenius/business_logic/viewmodels/home_viewmodel.dart';
 import 'package:mutipoint_xenius/constants.dart';
+import 'package:mutipoint_xenius/locator.dart';
 
 List<String> pieChartListText = ['Today', 'Month'];
 
-class PiechartRecyclerView extends StatelessWidget {
+class PiechartRecyclerView extends StatefulWidget {
   const PiechartRecyclerView({
     Key key,
   }) : super(key: key);
 
   @override
+  _PiechartRecyclerViewState createState() => _PiechartRecyclerViewState();
+}
+
+class _PiechartRecyclerViewState extends State<PiechartRecyclerView> {
+  @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         height: 400.0,
-        width: 400.0,
-        child: Card(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          color: Colors.white,
-          shadowColor: Colors.white24,
-          child: ListView.separated(
-            separatorBuilder: (BuildContext context, int index) => Divider(
-              thickness: 2.0,
-            ),
+        width: double.infinity,
+        padding:
+            EdgeInsets.only(top: 16.0, bottom: 16.0, left: 16.0, right: 16.0),
+        child: SizedBox(
+          child: ListView.builder(
             itemCount: 2,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text("Today"),
-                subtitle: PieChartOverView(),
+              return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.0)),
+                color: Colors.white,
+                shadowColor: Colors.white70,
+                elevation: 5.0,
+                child: ListTile(
+                  title: Center(child: Text('${pieChartListText[index]}')),
+                  subtitle: PieChartOverView(),
+                ),
               );
             },
+            shrinkWrap: true,
           ),
         ),
       ),
@@ -65,30 +77,35 @@ class PieChartOverView extends StatefulWidget {
 
 class _PieChartOverViewState extends State<PieChartOverView> {
   PieChartController controller;
-  var random = Random(1);
-  int _count = 4;
-  double _range = 100.0;
+
+  HomeViewModel model = locator<HomeViewModel>();
+  Resource resource;
 
   @override
   void initState() {
     _initController();
-    _initPieData(_count, _range);
+
+    model.getLoginResource().then((value) {
+      setState(() {
+        resource = value.body.resource;
+      });
+    });
+
+    _initPieData(resource);
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300.0,
-      padding: EdgeInsets.all(8.0),
-      child: Card(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: _initPieChart(),
-            )
-          ],
-        ),
+      height: 400.0,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: _initPieChart(),
+          )
+        ],
       ),
     );
   }
@@ -158,34 +175,55 @@ class _PieChartOverViewState extends State<PieChartOverView> {
 
   PercentFormatter _formatter = PercentFormatter();
 
-  void _initPieData(int count, double range) async {
+  void _initPieData(Resource resourceEntity) async {
+    String gridUnit = "Grid " + resourceEntity.readingUnit;
+    String dgUnit = "DG " + resourceEntity.readingUnit;
+    double gridValue = resourceEntity.dailyGridUnit;
+    double dgValue = resourceEntity.dailyDgUnit;
+
+    double gridValueMonth = resourceEntity.monthlyGridUnit;
+    double dgValueMonth = resourceEntity.monthlyDgUnit;
+
     List<PieEntry> entries = List();
+    List<PieEntry> pieEntriesMonth = List();
 
-    for (int i = 0; i < count; i++) {
-      entries.add(PieEntry(
-        value: (random.nextDouble() * range) + range / 5,
-        label: PARTIES[i % PARTIES.length],
-      ));
-    }
+    entries.add(PieEntry(
+      value: gridValue,
+      label: gridUnit,
+    ));
+    entries.add(PieEntry(
+      value: dgValue,
+      label: dgUnit,
+    ));
 
-    PieDataSet dataSet = PieDataSet(entries, "Election Results");
+    pieEntriesMonth.add(PieEntry(
+      value: gridValueMonth,
+      label: gridUnit,
+    ));
+    pieEntriesMonth.add(PieEntry(
+      value: dgValueMonth,
+      label: dgUnit,
+    ));
+
+    Map<String, List<PieEntry>> pieEntries = HashMap();
+    pieEntries.putIfAbsent('Today', () => entries);
+    pieEntries.putIfAbsent('Month', () => pieEntriesMonth);
+
+    PieDataSet dataSet = PieDataSet(pieEntries[1], "Consumptions");
     dataSet.setSliceSpace(3);
     dataSet.setSelectionShift(5);
 
     // add a lot of colors
     List<Color> colors = List();
-    for (Color c in ColorUtils.VORDIPLOM_COLORS) colors.add(c);
-    for (Color c in ColorUtils.JOYFUL_COLORS) colors.add(c);
-    for (Color c in ColorUtils.COLORFUL_COLORS) colors.add(c);
-    for (Color c in ColorUtils.LIBERTY_COLORS) colors.add(c);
-    for (Color c in ColorUtils.PASTEL_COLORS) colors.add(c);
-    colors.add(ColorUtils.HOLO_BLUE);
+    colors.add(kColorPrimary);
+    colors.add(kColorAccentRed);
+
     dataSet.setColors1(colors);
     dataSet.setSelectionShift(0);
 
     dataSet.setValueLinePart1OffsetPercentage(80.0);
-    dataSet.setValueLinePart1Length(0.2);
-    dataSet.setValueLinePart2Length(0.4);
+    dataSet.setValueLinePart1Length(0.8);
+    dataSet.setValueLinePart2Length(0.8);
 
     dataSet.setYValuePosition(ValuePosition.OUTSIDE_SLICE);
 
