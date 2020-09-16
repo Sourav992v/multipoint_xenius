@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:mp_chart/mp/chart/pie_chart.dart';
 import 'package:mp_chart/mp/controller/pie_chart_controller.dart';
 import 'package:mp_chart/mp/core/adapter_android_mp.dart';
@@ -30,10 +31,6 @@ import 'package:mutipoint_xenius/ui/view/base_view.dart';
 List<String> pieChartListText = ['Today', 'Month'];
 
 class PiechartRecyclerView extends StatefulWidget {
-  const PiechartRecyclerView({
-    Key key,
-  }) : super(key: key);
-
   @override
   _PiechartRecyclerViewState createState() => _PiechartRecyclerViewState();
 }
@@ -63,7 +60,6 @@ class _PiechartRecyclerViewState extends State<PiechartRecyclerView> {
                 ),
               );
             },
-            shrinkWrap: true,
           ),
         ),
       ),
@@ -77,19 +73,15 @@ class PieChartOverView extends StatefulWidget {
 }
 
 class _PieChartOverViewState extends State<PieChartOverView> {
-  PieChartController controller;
-
   HomeViewModel model = locator<HomeViewModel>();
-  Resource resource;
+  PieChartController controller;
+  Resource resourceEntity;
 
   @override
   void initState() {
-    model.getLoginResource().then((value) {
-      setState(() {
-        resource = value.body.resource;
-      });
-    });
-    _initController();
+    model.getLoginResource().then((value) => setState(() {
+          resourceEntity = value.body.resource;
+        }));
 
     super.initState();
   }
@@ -97,19 +89,28 @@ class _PieChartOverViewState extends State<PieChartOverView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeViewModel>(builder: (context, value, child) {
-      if (resource != null) {
-        _initPieData(resource);
+      if (resourceEntity != null) {
+        _initController();
+        _initPieData(resourceEntity);
       }
       return Container(
-        height: 400.0,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: _initPieChart(),
-            )
-          ],
-        ),
-      );
+          child: resourceEntity == null
+              ? Center(
+                  child: SpinKitFadingCircle(
+                    color: kColorPrimaryDark,
+                    size: 24.0,
+                  ),
+                )
+              : Container(
+                  height: 400.0,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: _initPieChart(),
+                      )
+                    ],
+                  ),
+                ));
     });
   }
 
@@ -141,7 +142,7 @@ class _PieChartOverViewState extends State<PieChartOverView> {
     ..add("Party Y")
     ..add("Party Z");
 
-  void _initController() {
+  void _initController() async {
     var desc = Description()..enabled = false;
 
     controller = PieChartController(
@@ -178,25 +179,25 @@ class _PieChartOverViewState extends State<PieChartOverView> {
 
   PercentFormatter _formatter = PercentFormatter();
 
-  void _initPieData(Resource resourceEntity) async {
-    String gridUnit = "Grid " + resourceEntity.readingUnit;
-    String dgUnit = "DG " + resourceEntity.readingUnit;
-    double gridValue = resourceEntity.dailyGridUnit;
-    double dgValue = resourceEntity.dailyDgUnit;
+  void _initPieData(Resource resourceEntity) {
+    var gridUnit = "Grid " + resourceEntity.readingUnit;
+    var dgUnit = "DG " + resourceEntity.readingUnit;
+    var gridValue = resourceEntity.dailyGridUnit;
+    var dgValue = resourceEntity.dailyDgUnit;
 
-    double gridValueMonth = resourceEntity.monthlyGridUnit;
-    double dgValueMonth = resourceEntity.monthlyDgUnit;
+    var gridValueMonth = resourceEntity.monthlyGridUnit;
+    var dgValueMonth = resourceEntity.monthlyDgUnit;
 
     List<PieEntry> entries = List();
     List<PieEntry> pieEntriesMonth = List();
 
     entries.add(PieEntry(
-      value: gridValue,
-      label: gridUnit,
+      value: 100.00,
+      label: 'Grid $gridUnit',
     ));
     entries.add(PieEntry(
-      value: dgValue,
-      label: dgUnit,
+      value: 200.00,
+      label: 'DG $dgUnit',
     ));
 
     pieEntriesMonth.add(PieEntry(
@@ -212,7 +213,7 @@ class _PieChartOverViewState extends State<PieChartOverView> {
     pieEntries.putIfAbsent('Today', () => entries);
     pieEntries.putIfAbsent('Month', () => pieEntriesMonth);
 
-    PieDataSet dataSet = PieDataSet(pieEntries[1], "Consumptions");
+    PieDataSet dataSet = PieDataSet(pieEntries['Today'], "Consumptions");
     dataSet.setSliceSpace(3);
     dataSet.setSelectionShift(5);
 
@@ -236,8 +237,6 @@ class _PieChartOverViewState extends State<PieChartOverView> {
       ..setValueTextColor(ColorUtils.BLACK)
       ..setValueTypeface(
           TypeFace(fontFamily: "Lato", fontWeight: FontWeight.w400));
-
-    setState(() {});
   }
 
   Widget _initPieChart() {
